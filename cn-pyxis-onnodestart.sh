@@ -27,5 +27,6 @@ set -exo pipefail
 
 # Enable scontrol
 
-# echo PATH=$PATH:/opt/slurm/bin:opt/slurm/sbin | sudo tee -a /etc/sysconfig/slurmd 
+echo PATH=$PATH:/opt/slurm/bin:opt/slurm/sbin
+#sudo tee -a /etc/sysconfig/slurmd 
 # sudo systemctl restart slurmd
