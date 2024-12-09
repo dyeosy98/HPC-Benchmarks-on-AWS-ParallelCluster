@@ -24,3 +24,8 @@ sudo mkdir -p $PYXIS_RUNTIME_DIR
 sudo chmod 1777 $PYXIS_RUNTIME_DIR
 
 set -exo pipefail
+
+# Enable scontrol
+
+echo PATH=$PATH:/opt/slurm/bin:opt/slurm/sbin | sudo tee -a /etc/sysconfig/slurmd 
+sudo systemctl restart slurmd
