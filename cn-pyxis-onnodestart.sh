@@ -25,8 +25,6 @@ sudo chmod 1777 $PYXIS_RUNTIME_DIR
 
 set -exo pipefail
 
-# Enable scontrol
-
-echo PATH=$PATH:/opt/slurm/bin:opt/slurm/sbin
-#sudo tee -a /etc/sysconfig/slurmd 
-# sudo systemctl restart slurmd
+mkdir -p /etc/sysconfig
+wget -O /etc/chef/cookbooks/aws-parallelcluster-slurm/templates/default/compute_node_finalize/slurm/slurm.sysconfig.erb https://raw.githubusercontent.com/aws/aws-parallelcluster-cookbook/refs/heads/develop/cookbooks/aws-parallelcluster-slurm/templates/default/compute_node_finalize/slurm/slurm.sysconfig.erb
+echo "PATH=/opt/slurm/sbin:/opt/slurm/bin:$(bash -c 'source /etc/environment ; echo $PATH')" >> /etc/chef/cookbooks/aws-parallelcluster-slurm/templates/default/compute_node_finalize/slurm/slurm.sysconfig.erb
