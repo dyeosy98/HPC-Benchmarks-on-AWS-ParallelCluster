@@ -18,3 +18,13 @@ if [ $GPU_PRESENT -eq 0 ] && [ $GPU_CONTAINER_PRESENT -gt 0 ]; then
   apt-get update -y
   apt-get install libnvidia-container-tools -y
 fi
+
+if [ $GPU_PRESENT -gt 0 ] && [ $GPU_CONTAINER_PRESENT -gt 0 ]; then
+	echo "GPUs not present, stopping early!"
+	exit 0
+fi
+
+nvidia-container-cli --load-kmods info || true
+
+systemctl is-active --quiet slurmctld && systemctl restart slurmctld || echo "This instance does not run slurmctld"
+systemctl is-active --quiet slurmd    && systemctl restart slurmd    || echo "This instance does not run slurmd
